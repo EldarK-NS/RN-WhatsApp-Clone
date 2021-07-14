@@ -4,7 +4,7 @@ import * as React from "react";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import TabOneScreen from "../screens/TabOneScreen";
+import ChatsScreen from "../screens/ChatsScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { MainTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -42,9 +42,9 @@ export default function MainTabNavigator() {
           tabBarLabel: () => null,
         }}
       />
-      <MainTab.Screen name="Chats" component={TabTwoNavigator} />
-      <MainTab.Screen name="Status" component={TabTwoNavigator} />
-      <MainTab.Screen name="Calls" component={TabTwoNavigator} />
+      <MainTab.Screen name="Chats" component={ChatsScreen} />
+      <MainTab.Screen name="Status" component={ChatsScreen} />
+      <MainTab.Screen name="Calls" component={ChatsScreen} />
     </MainTab.Navigator>
   );
 }
@@ -62,8 +62,8 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
+        name="ChatsScreen"
+        component={ChatsScreen}
         options={{ headerShown: false }}
       />
     </TabOneStack.Navigator>
