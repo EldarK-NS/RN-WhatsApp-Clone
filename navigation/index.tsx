@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
-import { ColorSchemeName, View, StyleSheet } from "react-native";
+import { ColorSchemeName, View, StyleSheet, Image, Text } from "react-native";
 // import { Colors } from "react-native/Libraries/NewAppScreen";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -13,7 +13,13 @@ import { RootStackParamList } from "../types";
 import MainTabNavigator from "./MainTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 import Colors from "../constants/Colors";
-import { Octicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Octicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
+import { ChatRoomScreen } from "../screens/ChatRoomScreen";
 
 export default function Navigation({
   colorScheme,
@@ -38,8 +44,8 @@ function RootNavigator() {
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.light.tint,
-          shadowOpacity:0,
-          elevation:0
+          shadowOpacity: 0,
+          elevation: 0,
         },
         headerTintColor: Colors.light.background,
         headerTitleAlign: "left",
@@ -65,6 +71,24 @@ function RootNavigator() {
         }}
       />
       <Stack.Screen
+        name="ChatRoom"
+        component={ChatRoomScreen}
+        options={({ route }) => ({
+          title: route.params?.name,
+          headerRight: () => (
+            <View style={styles.iconsContainer}>
+              <FontAwesome5 name="video" size={22} color={"white"} />
+              <MaterialIcons name="call" size={24} color={"white"} />
+              <MaterialCommunityIcons
+                name="dots-vertical"
+                size={24}
+                color={"white"}
+              />
+            </View>
+          ),
+        })}
+      />
+      <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
@@ -78,6 +102,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: 70,
     justifyContent: "space-between",
-    marginRight:10
+    marginRight: 10,
+  },
+  iconsContainer: {
+    flexDirection: "row",
+    width: 120,
+    justifyContent: "space-between",
+    marginRight: 15,
   },
 });

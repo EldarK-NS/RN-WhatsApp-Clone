@@ -1,7 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { ChatRoom } from "../../types";
 import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
 
 export type ChatListItemProps = {
   chatRoom: ChatRoom;
@@ -9,26 +16,38 @@ export type ChatListItemProps = {
 
 export const ChatListItem = (props: ChatListItemProps) => {
   const { chatRoom } = props;
+  const navigation = useNavigation();
   const user = chatRoom.users[1];
+
+  const onClick = () => {
+    navigation.navigate("ChatRoom", {
+      id: chatRoom.id,
+      name: user.name,
+      image: user.imageUri,
+    });
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.leftContainer}>
-        <Image source={{ uri: user.imageUri }} style={styles.avatar} />
-        <View style={styles.midContainer}>
-          <Text style={styles.userName}>{user.name}</Text>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode={"tail"}
-            style={styles.lastMessage}
-          >
-            {chatRoom.lastMessage.content}
-          </Text>
+    <TouchableWithoutFeedback onPress={onClick}>
+      <View style={styles.container}>
+        <View style={styles.leftContainer}>
+          <Image source={{ uri: user.imageUri }} style={styles.avatar} />
+          <View style={styles.midContainer}>
+            <Text style={styles.userName}>{user.name}</Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode={"tail"}
+              style={styles.lastMessage}
+            >
+              {chatRoom.lastMessage.content}
+            </Text>
+          </View>
         </View>
+        <Text style={styles.date}>
+          {moment(chatRoom.lastMessage.createdAt).format("DD.MM.YY")}
+        </Text>
       </View>
-      <Text style={styles.date}>
-        {moment(chatRoom.lastMessage.createdAt).format("DD.MM.YY")}
-      </Text>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
