@@ -35,7 +35,7 @@ function App() {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      // console.log(userInfo);
+     
       if (userInfo) {
         //get the user from Backend with the user SUB from Auth
         const userData = await API.graphql(
@@ -54,8 +54,6 @@ function App() {
           imageUri: getRandomImage(),
           status: "Hey, i am using WhatsApp",
         };
-
-        console.log((newUser))
         await API.graphql(graphqlOperation(createUser,{
            input:newUser
         }))
