@@ -20,6 +20,7 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 import { ChatRoomScreen } from "../screens/ChatRoomScreen";
+import ContactsScreen from '../screens/ContactsScreen';
 
 export default function Navigation({
   colorScheme,
@@ -74,7 +75,7 @@ function RootNavigator() {
         name="ChatRoom"
         component={ChatRoomScreen}
         options={({ route }) => ({
-          title: route.params?.name,
+          title: route.params.name,
           headerRight: () => (
             <View style={styles.iconsContainer}>
               <FontAwesome5 name="video" size={22} color={"white"} />
@@ -88,6 +89,10 @@ function RootNavigator() {
           ),
         })}
       />
+        <Stack.Screen
+          name="Contacts"
+          component={ContactsScreen}
+        />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}

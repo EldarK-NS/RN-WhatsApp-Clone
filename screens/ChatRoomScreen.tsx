@@ -13,6 +13,7 @@ import chatRoomData from "../data/Chats";
 import BG from "../assets/images/BG.png";
 import { InputBox } from './../components/InputBox/index';
 
+
 type ChatRoomScreenProps = {};
 
 export const ChatRoomScreen = () => {
