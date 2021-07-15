@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,15 +14,40 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
+import { API, graphqlOperation, Auth } from "aws-amplify";
+import { createMessage } from "../../src/graphql/mutations";
 
-export const InputBox = () => {
+export const InputBox = (props) => {
+  const { chatRoomID } = props;
+
   const [message, setMessage] = useState("");
+  const [myUserId, setMyUserId] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();
+      setMyUserId(userInfo.attributes.sub);
+    };
+    fetchUser();
+  }, []);
 
   const onMicrophonePress = () => {
     console.log("MICROPHONE");
   };
-  const onSendPress = () => {
-    console.log("SEND MESSAGE");
+  const onSendPress = async () => {
+    try {
+      await API.graphql(
+        graphqlOperation(createMessage, {
+          input: {
+            content: message,
+            userID: myUserId,
+            chatRoomID: chatRoomID,
+          },
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
     setMessage("");
   };
 
