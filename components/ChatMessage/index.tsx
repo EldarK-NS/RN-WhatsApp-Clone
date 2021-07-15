@@ -37,20 +37,21 @@ export const ChatMessage = (props: ChatMessageProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 5,
   },
   messageBox: {
-    borderRadius: 5,
-    padding: 10,
+    borderRadius: 8,
+    padding: 5,
   },
   name: {
     fontWeight: "bold",
     color: Colors.light.tint,
-    marginBottom: 5,
+    marginBottom: 2,
   },
   message: {},
   time: {
     alignSelf: "flex-end",
     color: "grey",
+    fontSize:10
   },
 });
