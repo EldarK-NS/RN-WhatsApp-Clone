@@ -26,7 +26,11 @@ export const ContactListItem = (props: ContactListItemProps) => {
     try {
       //create a new chatRoom
       const newChatRoomData = await API.graphql(
-        graphqlOperation(createChatRoom, { input: {} })
+        graphqlOperation(createChatRoom, {
+          input: {
+            lastMessageID: "4dcc17b2-23ce-4c96-8131-ef3046e87a9f",
+          },
+        })
       );
 
       if (!newChatRoomData.data) {
@@ -54,9 +58,9 @@ export const ContactListItem = (props: ContactListItemProps) => {
         })
       );
       navigation.navigate("ChatRoom", {
-         id: newChatRoom.id,
-         name: "Hardcoded Name",
-       });
+        id: newChatRoom.id,
+        name: "Hardcoded Name",
+      });
     } catch (err) {
       console.log(err);
     }

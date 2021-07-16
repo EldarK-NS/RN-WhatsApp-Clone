@@ -14,6 +14,7 @@ import { withAuthenticator } from "aws-amplify-react-native";
 import { getUser } from "./src/graphql/queries";
 import { createUser } from "./src/graphql/mutations";
 
+
 const randomImages = [
   "https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg",
   "https://hieumobile.com/wp-content/uploads/avatar-among-us-3.jpg",
@@ -35,7 +36,7 @@ function App() {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-     
+
       if (userInfo) {
         //get the user from Backend with the user SUB from Auth
         const userData = await API.graphql(
@@ -54,11 +55,12 @@ function App() {
           imageUri: getRandomImage(),
           status: "Hey, i am using WhatsApp",
         };
-        await API.graphql(graphqlOperation(createUser,{
-           input:newUser
-        }))
+        await API.graphql(
+          graphqlOperation(createUser, {
+            input: newUser,
+          })
+        );
 
-        
         //if no user in DB with the Id? then create it
       }
     };

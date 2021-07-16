@@ -28,8 +28,8 @@ export const ChatListItem = (props: ChatListItemProps) => {
       } else {
         setOtherUser(chatRoom.chatRoomUsers.items[0].user);
       }
-   };
-   getOtherUser();
+    };
+    getOtherUser();
   }, []);
 
   const onClick = () => {
@@ -54,7 +54,9 @@ export const ChatListItem = (props: ChatListItemProps) => {
               ellipsizeMode={"tail"}
               style={styles.lastMessage}
             >
-              {chatRoom.lastMessage ? chatRoom.lastMessage.content : ""}
+              {chatRoom.lastMessage
+                ? `${chatRoom.lastMessage.user.name}: ${chatRoom.lastMessage.content}`
+                : ""}
             </Text>
           </View>
         </View>
